@@ -1,0 +1,44 @@
+ 
+Temat: Estymacja położenia satelity z użyciem nawigacji inercyjnej i punktów nawigacyjnych
+
+eng: 
+
+Spacecraft state estimation based on inertial navigation and navigation points
+
+Spacecraft localisation and mapping based on inertial navigation and navigation points
+
+Localisation and mapping of an object in microgravity environment based on inertial navigation and navigation points
+
+
+ZAKRES PRACY:
+
+ogólny:
+symulacja w Matlabie poruszającego się obiektu w środowisku z punktami nawigacyjnymi oraz implementacja algorytmów lokalizacji i mapowania położenia obiektu 
+
+szczegółowe:
+model obiektu oraz jego równania ruchu w warunkach niskiej grawitacji 
+
+wygenerowanie chmury punktów nawigacyjnych w środowisku
+
+implementacja algorytmów lokalizacji obiektu: nawigacja inercyjna z użyciem czujnika IMU i Unscented Kalman Filter z użyciem obserwowanych punktów nawigacyjnych 
+
+
+OBIEKTY:
+
+środowisko:
+niska grawitacja
+punkty nawigacyjne
+
+obiekt:
+porusza się po zadanej trajektorii
+prostopadłościan
+IMU na pokładzie 
+obserwuje punkty nawigacyjne
+
+IMU:
+model akcelerometru (szumy, dryfy, stałe czasowe etc)
+
+OBSW:
+dane z IMU
+obserwacja punktow nawigacyjnych 
+fuzja danych i estymacja położenia w czasie rzeczywistym
