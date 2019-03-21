@@ -1,8 +1,8 @@
 close all; clear all; clc
 run parameters.m;
 
-ptCloud = pcread('Churyumov-Gerasimenko SPC 2017 - 96k poly.ply');
-figure; pcshow(ptCloud); xlabel('x axis'); ylabel('y axis');
+% ptCloud = pcread('Churyumov-Gerasimenko SPC 2017 - 96k poly.ply');
+% figure; pcshow(ptCloud); xlabel('x axis'); ylabel('y axis');
 % ptCloud = (rotx(30) * ptCloud.Location')';
 % figure; pcshow(ptCloud); xlabel('x axis'); ylabel('y axis');
 
@@ -47,12 +47,16 @@ sc_loc = zeros(3, length(sim_time));
 % sc_loc(:,1) = sc_loc_0;
 
 for i=1:length(sim_time)
+    if i==30000
+        i;
+    end
     k = k_1 + d_k;
     sc_loc(1,i) = r*cos(k);
     sc_loc(2,i) = r*sin(k);
     sc_loc(3,i) = 0;
+   
     
-    sc_loc(:,i) = roty(30)*sc_loc(:,i);
+    sc_loc(:,i) = rotx(30)*sc_loc(:,i);
     
     k_1 = k;
 end
@@ -62,26 +66,22 @@ end
 % scatter3(0,0,0,'ok');
 % legend("orbit","SC"); grid on; xlabel('x axis'); ylabel('y axis')
 
-% % SC LOS
-% ROT_CB_SC = R(Z,arg) * R(Y,0) * R(X,30deg)
+%% SC LOS
 
-arg = 50;
-    
-% ROT_CB_SC = (rotz(arg) * roty(0) * rotx(30))';
-ROT_CB_SC = (rotx(30) * roty(0) * rotz(arg));
+ROT_CB_SC = rotx(90) * roty(-90) * roty(rad2deg(0.2917)) * rotx(asind(sc_loc(3,30000)/r));
 CB_LOS = ROT_CB_SC * SC_LOS;
 
-scale = 50000;
+scale = r;
 
 arg = 30000;
-
+% arg = 1;
 figure; 
 plot3(sc_loc(1,:), sc_loc(2,:), sc_loc(3,:));  
 hold on; axis equal;
 plot3([sc_loc(1,arg) sc_loc(1,arg)+CB_LOS(1)*scale], [sc_loc(2,arg) sc_loc(2,arg)+CB_LOS(2)*scale], [sc_loc(3,arg) sc_loc(3,arg)+CB_LOS(3)*scale]);
 scatter3(sc_loc(1,arg), sc_loc(2,arg), sc_loc(3,arg));
 scatter3(0,0,0,'ok');
-legend("orbit", "LOS","SC","CB"); grid on;
+legend('orbit', 'LOS','SC','CB'); grid on;
 xlabel('x axis'); ylabel('y axis')
 
 % zz = ptCloud.Location';
